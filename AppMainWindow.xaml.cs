@@ -73,27 +73,11 @@ public partial class AppMainWindow : Window
     private void AnimateWindowStartup()
     {
         // 淡入动画
-        var fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(400))
+        var fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(500))
         {
             EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
         };
-
-        // 缩放动画（从中心弹出）
-        var scaleTransform = new ScaleTransform(0.95, 0.95, ActualWidth / 2, ActualHeight / 2);
-        RenderTransform = scaleTransform;
-
-        var scaleX = new DoubleAnimation(0.95, 1, TimeSpan.FromMilliseconds(500))
-        {
-            EasingFunction = new ElasticEase { EasingMode = EasingMode.EaseOut, Oscillations = 1 }
-        };
-        var scaleY = new DoubleAnimation(0.95, 1, TimeSpan.FromMilliseconds(500))
-        {
-            EasingFunction = new ElasticEase { EasingMode = EasingMode.EaseOut, Oscillations = 1 }
-        };
-
         BeginAnimation(OpacityProperty, fadeIn);
-        scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleX);
-        scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleY);
     }
 
     #endregion
