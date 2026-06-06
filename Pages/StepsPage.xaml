@@ -11,7 +11,7 @@
         <Style x:Key="CaptureBtn" TargetType="Button">
             <Setter Property="Content" Value="截取"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="14,5"/>
+            <Setter Property="Padding" Value="14,6"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#FF2D6A4F"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -20,7 +20,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Bd" Background="{TemplateBinding Background}"
-                                CornerRadius="5" Padding="{TemplateBinding Padding}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}"
                                 BorderThickness="1" BorderBrush="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
@@ -42,7 +42,7 @@
         <Style x:Key="TestBtn" TargetType="Button">
             <Setter Property="Content" Value="识别"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="14,5"/>
+            <Setter Property="Padding" Value="14,6"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#FF2A4A6A"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -51,7 +51,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Bd" Background="{TemplateBinding Background}"
-                                CornerRadius="5" Padding="{TemplateBinding Padding}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}"
                                 BorderThickness="1" BorderBrush="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
@@ -73,7 +73,7 @@
         <Style x:Key="ResetBtn" TargetType="Button">
             <Setter Property="Content" Value="重置"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="14,5"/>
+            <Setter Property="Padding" Value="14,6"/>
             <Setter Property="Foreground" Value="{DynamicResource DangerBrush}"/>
             <Setter Property="Background" Value="{DynamicResource DangerDimBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -82,7 +82,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Bd" Background="{TemplateBinding Background}"
-                                CornerRadius="5" Padding="{TemplateBinding Padding}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}"
                                 BorderThickness="1" BorderBrush="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
@@ -101,14 +101,17 @@
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="28,24">
         <StackPanel>
 
-            <!-- 标题 -->
-            <Grid Margin="0,0,0,20">
-                <TextBlock Text="步骤管理" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+            <!-- 标题区 -->
+            <Grid Margin="0,0,0,24">
+                <StackPanel>
+                    <TextBlock Text="步骤管理" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                    <TextBlock Text="配置和管理自动化步骤" FontSize="13" Foreground="{DynamicResource TextTertiaryBrush}" Margin="0,6,0,0"/>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Border Background="{DynamicResource InputBgBrush}" CornerRadius="6" Padding="10,4">
+                    <Border Background="{DynamicResource InputBgBrush}" CornerRadius="8" Padding="12,5">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="已配置 " FontSize="12" Foreground="{DynamicResource TextTertiaryBrush}" VerticalAlignment="Center"/>
                             <TextBlock Text="{Binding ConfiguredCount}" FontSize="15" FontWeight="Bold"
@@ -125,7 +128,7 @@
             <ItemsControl ItemsSource="{Binding Steps}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="vm:StepViewModel">
-                        <Border Margin="0,0,0,8" Style="{StaticResource StepCard}">
+                        <Border Margin="0,0,0,10" Style="{StaticResource StepCard}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -134,10 +137,10 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- 序号圆圈 -->
-                                <Border Grid.Column="0" Width="36" Height="36" CornerRadius="18"
-                                        Margin="0,0,14,0" VerticalAlignment="Center"
+                                <Border Grid.Column="0" Width="40" Height="40" CornerRadius="20"
+                                        Margin="0,0,16,0" VerticalAlignment="Center"
                                         Background="{DynamicResource InputBgBrush}">
-                                    <TextBlock Text="{Binding IndexText, Mode=OneWay}" FontSize="13" FontWeight="Bold"
+                                    <TextBlock Text="{Binding IndexText, Mode=OneWay}" FontSize="14" FontWeight="Bold"
                                                Foreground="{DynamicResource TextSecondaryBrush}" HorizontalAlignment="Center"
                                                VerticalAlignment="Center"/>
                                 </Border>
@@ -147,25 +150,25 @@
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Name, Mode=OneWay}" FontSize="14" FontWeight="SemiBold"
                                                    Foreground="{DynamicResource TextPrimaryBrush}"/>
-                                        <Border Margin="10,0,4,0" CornerRadius="10" Padding="8,2"
+                                        <Border Margin="10,0,4,0" CornerRadius="8" Padding="8,3"
                                                 VerticalAlignment="Center" Background="{DynamicResource TagInfoBrush}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding StatusIcon, Mode=OneWay}" FontSize="11"
-                                                           VerticalAlignment="Center" Margin="0,0,3,0"/>
+                                                           VerticalAlignment="Center" Margin="0,0,4,0"/>
                                                 <TextBlock Text="{Binding StatusText, Mode=OneWay}" FontSize="11"
                                                            VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Border>
                                     </StackPanel>
                                     <TextBlock Text="{Binding Description, Mode=OneWay}" FontSize="12" Foreground="{DynamicResource TextDisabledBrush}"
-                                               Margin="0,4,0,0"/>
+                                               Margin="0,6,0,0"/>
                                 </StackPanel>
 
                                 <!-- 操作按钮 -->
                                 <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Button Style="{StaticResource CaptureBtn}" Margin="0,0,6,0"
+                                    <Button Style="{StaticResource CaptureBtn}" Margin="0,0,8,0"
                                             Tag="{Binding}" Click="Capture_Click"/>
-                                    <Button Style="{StaticResource TestBtn}" Margin="0,0,6,0"
+                                    <Button Style="{StaticResource TestBtn}" Margin="0,0,8,0"
                                             Tag="{Binding}" Click="TestRecognition_Click"/>
                                     <Button Style="{StaticResource ResetBtn}"
                                             Tag="{Binding}" Click="Reset_Click"/>

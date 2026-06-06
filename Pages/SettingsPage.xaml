@@ -9,24 +9,24 @@
         <Style x:Key="SaveButton" TargetType="Button">
             <Setter Property="Content" Value="💾 保存设置"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="36,10"/>
+            <Setter Property="Padding" Value="40,11"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#FF2D6A4F"/>
+            <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Bd" Background="{TemplateBinding Background}"
-                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                CornerRadius="10" Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#FF3A8A6A"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentHoverBrush}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#FF245A42"/>
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.85"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -36,78 +36,81 @@
 
         <!-- 主题选择卡片 -->
         <Style x:Key="ThemeOptionCard" TargetType="Border">
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="18,14"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,20">
-        <StackPanel MaxWidth="600">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="28,24">
+        <StackPanel MaxWidth="620">
 
             <!-- 标题 -->
-            <TextBlock Text="设置" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+            <StackPanel Margin="0,0,0,28">
+                <TextBlock Text="设置" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                <TextBlock Text="配置应用程序参数和偏好" FontSize="13" Foreground="{DynamicResource TextTertiaryBrush}" Margin="0,6,0,0"/>
+            </StackPanel>
 
             <!-- 主题设置 -->
             <Border Style="{StaticResource SettingsCard}">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                        <Border Background="{DynamicResource AccentDimBrush}" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
-                            <TextBlock Text="🎨" FontSize="12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
+                        <Border Background="{DynamicResource AccentDimBrush}" CornerRadius="6" Padding="7,4" Margin="0,0,10,0">
+                            <TextBlock Text="🎨" FontSize="13"/>
                         </Border>
-                        <TextBlock Text="外观主题" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
+                        <TextBlock Text="外观主题" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <Grid Margin="0,0,0,8">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="14"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <!-- 深色主题 -->
-                        <Border x:Name="ThemeDarkCard" Grid.Column="0" Background="#FF1E1E22" CornerRadius="8"
-                                Padding="16,14" Cursor="Hand" MouseLeftButtonDown="ThemeDark_Click"
+                        <Border x:Name="ThemeDarkCard" Grid.Column="0" Background="#FF1A1A1E" CornerRadius="10"
+                                Padding="18,16" Cursor="Hand" MouseLeftButtonDown="ThemeDark_Click"
                                 BorderThickness="2" BorderBrush="Transparent">
                             <StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="🌙" FontSize="20" Margin="0,0,8,0"/>
-                                    <TextBlock Text="深色" FontSize="14" FontWeight="SemiBold" Foreground="White"
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <TextBlock Text="🌙" FontSize="22" Margin="0,0,10,0"/>
+                                    <TextBlock Text="深色" FontSize="15" FontWeight="SemiBold" Foreground="White"
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <Border Background="#FF2D2D30" CornerRadius="4" Height="32" Margin="0,0,0,6">
-                                    <StackPanel Orientation="Horizontal" Margin="8,0">
-                                        <Border Background="#FF00CC6A" Width="12" Height="12" CornerRadius="6" Margin="0,0,6,0"/>
-                                        <Border Background="#FF4488CC" Width="12" Height="12" CornerRadius="6" Margin="0,0,6,0"/>
-                                        <Border Background="#FFCC4444" Width="12" Height="12" CornerRadius="6"/>
+                                <Border Background="#FF27272A" CornerRadius="6" Height="36" Margin="0,0,0,8">
+                                    <StackPanel Orientation="Horizontal" Margin="10,0">
+                                        <Border Background="#FF34D399" Width="14" Height="14" CornerRadius="7" Margin="0,0,8,0"/>
+                                        <Border Background="#FF60A5FA" Width="14" Height="14" CornerRadius="7" Margin="0,0,8,0"/>
+                                        <Border Background="#FFF87171" Width="14" Height="14" CornerRadius="7"/>
                                     </StackPanel>
                                 </Border>
-                                <TextBlock Text="护眼暗色调" FontSize="11" Foreground="#FF888888"/>
+                                <TextBlock Text="护眼暗色调" FontSize="12" Foreground="#FF71717A"/>
                             </StackPanel>
                         </Border>
 
                         <!-- 浅色主题 -->
-                        <Border x:Name="ThemeLightCard" Grid.Column="2" Background="#FFF5F5F5" CornerRadius="8"
-                                Padding="16,14" Cursor="Hand" MouseLeftButtonDown="ThemeLight_Click"
+                        <Border x:Name="ThemeLightCard" Grid.Column="2" Background="#FFFAFAFA" CornerRadius="10"
+                                Padding="18,16" Cursor="Hand" MouseLeftButtonDown="ThemeLight_Click"
                                 BorderThickness="2" BorderBrush="Transparent">
                             <StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="☀️" FontSize="20" Margin="0,0,8,0"/>
-                                    <TextBlock Text="浅色" FontSize="14" FontWeight="SemiBold" Foreground="#FF1A1A1A"
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <TextBlock Text="☀️" FontSize="22" Margin="0,0,10,0"/>
+                                    <TextBlock Text="浅色" FontSize="15" FontWeight="SemiBold" Foreground="#FF18181B"
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <Border Background="#FFFFFF" CornerRadius="4" Height="32" Margin="0,0,0,6"
-                                        BorderBrush="#FFE0E0E0" BorderThickness="1">
-                                    <StackPanel Orientation="Horizontal" Margin="8,0">
-                                        <Border Background="#FF00A854" Width="12" Height="12" CornerRadius="6" Margin="0,0,6,0"/>
-                                        <Border Background="#FF1976D2" Width="12" Height="12" CornerRadius="6" Margin="0,0,6,0"/>
-                                        <Border Background="#FFD32F2F" Width="12" Height="12" CornerRadius="6"/>
+                                <Border Background="#FFFFFFFF" CornerRadius="6" Height="36" Margin="0,0,0,8"
+                                        BorderBrush="#FFE4E4E7" BorderThickness="1">
+                                    <StackPanel Orientation="Horizontal" Margin="10,0">
+                                        <Border Background="#FF059669" Width="14" Height="14" CornerRadius="7" Margin="0,0,8,0"/>
+                                        <Border Background="#FF2563EB" Width="14" Height="14" CornerRadius="7" Margin="0,0,8,0"/>
+                                        <Border Background="#FFDC2626" Width="14" Height="14" CornerRadius="7"/>
                                     </StackPanel>
                                 </Border>
-                                <TextBlock Text="明亮清爽风格" FontSize="11" Foreground="#FF888888"/>
+                                <TextBlock Text="明亮清爽风格" FontSize="12" Foreground="#FF71717A"/>
                             </StackPanel>
                         </Border>
                     </Grid>
@@ -117,24 +120,24 @@
             <!-- 延时设置 -->
             <Border Style="{StaticResource SettingsCard}">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                        <Border Background="{DynamicResource InfoDimBrush}" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
-                            <TextBlock Text="⏱" FontSize="12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
+                        <Border Background="{DynamicResource InfoDimBrush}" CornerRadius="6" Padding="7,4" Margin="0,0,10,0">
+                            <TextBlock Text="⏱" FontSize="13"/>
                         </Border>
-                        <TextBlock Text="延时设置" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
+                        <TextBlock Text="延时设置" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
-                    <Grid Margin="0,0,0,14">
+                    <Grid Margin="0,0,0,16">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="65"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="每步等待" Style="{StaticResource SettingLabel}"/>
                         <Slider Grid.Column="1" x:Name="StepDelaySlider" Minimum="0.5" Maximum="5"
                                 Value="{Binding StepDelay}" TickFrequency="0.5" IsSnapToTickEnabled="True"
-                                VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <Border Grid.Column="2" Background="{DynamicResource InputBgBrush}" CornerRadius="4" Padding="6,2"
+                                VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <Border Grid.Column="2" Background="{DynamicResource InputBgBrush}" CornerRadius="6" Padding="8,3"
                                 HorizontalAlignment="Right">
                             <TextBlock Style="{StaticResource SettingValue}">
                                 <Run Text="{Binding StepDelay, StringFormat=0.0}"/>
@@ -146,13 +149,13 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="65"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="加载等待" Style="{StaticResource SettingLabel}"/>
                         <Slider Grid.Column="1" x:Name="LoadDelaySlider" Minimum="1" Maximum="15"
                                 Value="{Binding LoadDelay}" TickFrequency="1" IsSnapToTickEnabled="True"
-                                VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <Border Grid.Column="2" Background="{DynamicResource InputBgBrush}" CornerRadius="4" Padding="6,2"
+                                VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <Border Grid.Column="2" Background="{DynamicResource InputBgBrush}" CornerRadius="6" Padding="8,3"
                                 HorizontalAlignment="Right">
                             <TextBlock Style="{StaticResource SettingValue}">
                                 <Run Text="{Binding LoadDelay, StringFormat=0}"/>
@@ -166,21 +169,21 @@
             <!-- 重试设置 -->
             <Border Style="{StaticResource SettingsCard}">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                        <Border Background="{DynamicResource WarningDimBrush}" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
-                            <TextBlock Text="🔄" FontSize="12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
+                        <Border Background="{DynamicResource WarningDimBrush}" CornerRadius="6" Padding="7,4" Margin="0,0,10,0">
+                            <TextBlock Text="🔄" FontSize="13"/>
                         </Border>
-                        <TextBlock Text="重试设置" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
+                        <TextBlock Text="重试设置" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
-                    <Grid Margin="0,0,0,12">
+                    <Grid Margin="0,0,0,14">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="最大重试" Style="{StaticResource SettingLabel}"/>
                         <hc:NumericUpDown Grid.Column="1" Value="{Binding MaxRetry}" Minimum="1" Maximum="10"
-                                          Width="120" HorizontalAlignment="Left"/>
+                                          Width="130" HorizontalAlignment="Left"/>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -189,7 +192,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="重试间隔" Style="{StaticResource SettingLabel}"/>
                         <hc:NumericUpDown Grid.Column="1" Value="{Binding RetryWait}" Minimum="0.5" Maximum="10"
-                                          Increment="0.5" Width="120" HorizontalAlignment="Left"/>
+                                          Increment="0.5" Width="130" HorizontalAlignment="Left"/>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -197,31 +200,31 @@
             <!-- 识别设置 -->
             <Border Style="{StaticResource SettingsCard}">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                        <Border Background="{DynamicResource AccentDimBrush}" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
-                            <TextBlock Text="🎯" FontSize="12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
+                        <Border Background="{DynamicResource AccentDimBrush}" CornerRadius="6" Padding="7,4" Margin="0,0,10,0">
+                            <TextBlock Text="🎯" FontSize="13"/>
                         </Border>
-                        <TextBlock Text="识别设置" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
+                        <TextBlock Text="识别设置" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="65"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="匹配阈值" Style="{StaticResource SettingLabel}"/>
                         <Slider Grid.Column="1" Minimum="0.5" Maximum="0.99" Value="{Binding MatchThreshold}"
                                 TickFrequency="0.01" IsSnapToTickEnabled="True" VerticalAlignment="Center"
-                                Margin="0,0,10,0"/>
-                        <Border Grid.Column="2" Background="{DynamicResource InputBgBrush}" CornerRadius="4" Padding="6,2"
+                                Margin="0,0,12,0"/>
+                        <Border Grid.Column="2" Background="{DynamicResource InputBgBrush}" CornerRadius="6" Padding="8,3"
                                 HorizontalAlignment="Right">
                             <TextBlock Style="{StaticResource SettingValue}"
                                        Text="{Binding MatchThreshold, StringFormat=0.00}"/>
                         </Border>
                     </Grid>
-                    <Border Background="{DynamicResource InputBgBrush}" CornerRadius="4" Padding="10,6" Margin="0,10,0,0">
-                        <TextBlock Text="💡 阈值越高匹配越严格，建议 0.75 ~ 0.85" FontSize="11"
+                    <Border Background="{DynamicResource InputBgBrush}" CornerRadius="6" Padding="12,8" Margin="0,12,0,0">
+                        <TextBlock Text="💡 阈值越高匹配越严格，建议 0.75 ~ 0.85" FontSize="12"
                                    Foreground="{DynamicResource TextTertiaryBrush}"/>
                     </Border>
                 </StackPanel>
@@ -230,20 +233,20 @@
             <!-- 定时设置 -->
             <Border Style="{StaticResource SettingsCard}">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                        <Border Background="{DynamicResource DangerDimBrush}" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
-                            <TextBlock Text="⏰" FontSize="12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
+                        <Border Background="{DynamicResource DangerDimBrush}" CornerRadius="6" Padding="7,4" Margin="0,0,10,0">
+                            <TextBlock Text="⏰" FontSize="13"/>
                         </Border>
-                        <TextBlock Text="定时执行" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
+                        <TextBlock Text="定时执行" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <Border Background="{DynamicResource InputBgBrush}" CornerRadius="6" Padding="12,10" Margin="0,0,0,14">
+                    <Border Background="{DynamicResource InputBgBrush}" CornerRadius="8" Padding="14,11" Margin="0,0,0,16">
                         <CheckBox Content="启用定时执行" IsChecked="{Binding ScheduleEnabled}"
                                   Foreground="{DynamicResource TextSecondaryBrush}" FontSize="13"/>
                     </Border>
 
-                    <Grid Margin="0,0,0,14">
+                    <Grid Margin="0,0,0,16">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="Auto"/>
@@ -252,11 +255,11 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="执行时间" Style="{StaticResource SettingLabel}"/>
                         <hc:NumericUpDown Grid.Column="1" Value="{Binding ScheduleHour}" Minimum="0" Maximum="23"
-                                          Width="80"/>
+                                          Width="85"/>
                         <TextBlock Grid.Column="2" Text=" : " FontSize="16" Foreground="{DynamicResource TextSecondaryBrush}"
-                                   VerticalAlignment="Center" Margin="6,0"/>
+                                   VerticalAlignment="Center" Margin="8,0"/>
                         <hc:NumericUpDown Grid.Column="3" Value="{Binding ScheduleMinute}" Minimum="0" Maximum="59"
-                                          Width="80"/>
+                                          Width="85"/>
                     </Grid>
 
                     <Grid>
@@ -267,12 +270,12 @@
                         <TextBlock Grid.Column="0" Text="执行日期" Style="{StaticResource SettingLabel}"
                                    VerticalAlignment="Top" Margin="0,4,0,0"/>
                         <WrapPanel Grid.Column="1">
-                            <CheckBox Content="周一" IsChecked="{Binding ScheduleDays[0]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,14,0"/>
-                            <CheckBox Content="周二" IsChecked="{Binding ScheduleDays[1]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,14,0"/>
-                            <CheckBox Content="周三" IsChecked="{Binding ScheduleDays[2]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,14,0"/>
-                            <CheckBox Content="周四" IsChecked="{Binding ScheduleDays[3]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,14,0"/>
-                            <CheckBox Content="周五" IsChecked="{Binding ScheduleDays[4]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,14,0"/>
-                            <CheckBox Content="周六" IsChecked="{Binding ScheduleDays[5]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,14,0"/>
+                            <CheckBox Content="周一" IsChecked="{Binding ScheduleDays[0]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0"/>
+                            <CheckBox Content="周二" IsChecked="{Binding ScheduleDays[1]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0"/>
+                            <CheckBox Content="周三" IsChecked="{Binding ScheduleDays[2]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0"/>
+                            <CheckBox Content="周四" IsChecked="{Binding ScheduleDays[3]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0"/>
+                            <CheckBox Content="周五" IsChecked="{Binding ScheduleDays[4]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0"/>
+                            <CheckBox Content="周六" IsChecked="{Binding ScheduleDays[5]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0"/>
                             <CheckBox Content="周日" IsChecked="{Binding ScheduleDays[6]}" Foreground="{DynamicResource TextSecondaryBrush}"/>
                         </WrapPanel>
                     </Grid>
@@ -281,7 +284,7 @@
 
             <!-- 保存按钮 -->
             <Button Style="{StaticResource SaveButton}" HorizontalAlignment="Center"
-                    Click="Save_Click"/>
+                    Click="Save_Click" Margin="0,8,0,0"/>
 
         </StackPanel>
     </ScrollViewer>

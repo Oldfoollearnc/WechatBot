@@ -3,142 +3,163 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         Title="排序小助手"
-        Height="720" Width="1060"
+        Height="720" Width="1080"
         MinHeight="600" MinWidth="900"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Icon="app.ico"
-        Background="{DynamicResource BgBrush}"
+        Background="Transparent"
         FontFamily="{StaticResource GlobalFont}">
 
-    <Border BorderBrush="#FF3A3A3E" BorderThickness="1" CornerRadius="8">
-    <Grid>
-        <!-- 自定义标题栏（固定深色） -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Background="{DynamicResource TitleBarBrush}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- 左侧图标和标题 -->
-            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="16,0,0,0" VerticalAlignment="Center">
-                <Image Source="app.ico" Width="16" Height="16" Margin="0,0,8,0"/>
-                <TextBlock Text="排序小助手" FontSize="13" Foreground="{DynamicResource TitleBarTextBrush}" VerticalAlignment="Center"/>
-            </StackPanel>
-
-            <!-- 右侧窗口按钮 -->
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Button x:Name="BtnMinimize" Content="─" Click="BtnMinimize_Click"
-                        Width="46" Height="32" FontSize="14" Foreground="{DynamicResource TitleBarButtonBrush}"
-                        Background="Transparent" BorderThickness="0" Cursor="Hand"/>
-                <Button x:Name="BtnMaximize" Content="□" Click="BtnMaximize_Click"
-                        Width="46" Height="32" FontSize="14" Foreground="{DynamicResource TitleBarButtonBrush}"
-                        Background="Transparent" BorderThickness="0" Cursor="Hand"/>
-                <Button x:Name="BtnClose" Content="✕" Click="BtnClose_Click"
-                        Width="46" Height="32" FontSize="14" Foreground="{DynamicResource TitleBarButtonBrush}"
-                        Background="Transparent" BorderThickness="0" Cursor="Hand"/>
-            </StackPanel>
-        </Grid>
-
-        <!-- 主内容区 -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- 侧边导航栏 -->
-            <Border Grid.Column="0" Background="{DynamicResource NavBgBrush}" Width="200">
-            <DockPanel>
-                <!-- Logo 区域 -->
-                <Border DockPanel.Dock="Top" Background="{DynamicResource BgDeepBrush}" Padding="20,18">
-                    <StackPanel>
-                        <TextBlock x:Name="LogoEmoji" Text="🐷" FontSize="24" HorizontalAlignment="Center"/>
-                        <TextBlock Text="排序小助手" FontSize="14" FontWeight="Bold"
-                                   Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
-                        <TextBlock Text="猪猪工作室" FontSize="10" Foreground="{DynamicResource TextDisabledBrush}"
-                                   HorizontalAlignment="Center" Margin="0,2,0,0"/>
-                    </StackPanel>
-                </Border>
-
-                <!-- 底部版本 -->
-                <Border DockPanel.Dock="Bottom" Padding="0,0,0,18">
-                    <StackPanel HorizontalAlignment="Center">
-                        <Border Background="{DynamicResource InputBgBrush}" CornerRadius="10" Padding="10,3" Margin="0,0,0,6">
-                            <TextBlock Text="v1.0.0" FontSize="10" Foreground="{DynamicResource TextDisabledBrush}"
-                                       HorizontalAlignment="Center"/>
-                        </Border>
-                    </StackPanel>
-                </Border>
-
-                <!-- 导航项 -->
-                <StackPanel Margin="0,10,0,0">
-                    <RadioButton x:Name="NavHome" Content="  🏠  首页" IsChecked="True"
-                                 Style="{StaticResource NavItemStyle}" Checked="Nav_Checked"/>
-                    <RadioButton x:Name="NavSteps" Content="  📋  步骤"
-                                 Style="{StaticResource NavItemStyle}" Checked="Nav_Checked"/>
-                    <RadioButton x:Name="NavLogs" Content="  📜  日志"
-                                 Style="{StaticResource NavItemStyle}" Checked="Nav_Checked"/>
-                    <RadioButton x:Name="NavSettings" Content="  ⚙  设置"
-                                 Style="{StaticResource NavItemStyle}" Checked="Nav_Checked"/>
-                </StackPanel>
-            </DockPanel>
-        </Border>
-
-            <!-- 右侧内容区 -->
-            <Grid Grid.Column="1">
+    <!-- 主容器：带圆角和阴影 -->
+    <Border Background="{DynamicResource BgBrush}" CornerRadius="10"
+            BorderBrush="{DynamicResource SeparatorBrush}" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="16" Opacity="0.2" ShadowDepth="0"/>
+        </Border.Effect>
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-                <!-- 顶部状态条 -->
-                <Border Grid.Row="0" Background="{DynamicResource StatusBarBrush}" Padding="20,10"
-                        BorderBrush="{DynamicResource SeparatorBrush}" BorderThickness="0,0,0,1">
-                    <Grid>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock x:Name="StatusIconText" Text="{Binding StatusIcon}" FontSize="18"
-                                       VerticalAlignment="Center" Margin="0,0,10,0"/>
-                            <TextBlock Text="{Binding StatusText}" FontSize="14" Foreground="{DynamicResource TextSecondaryBrush}"
-                                       VerticalAlignment="Center" FontWeight="SemiBold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <Border Background="{DynamicResource InputBgBrush}" CornerRadius="6" Padding="10,4">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="已配置 " Foreground="{DynamicResource TextTertiaryBrush}" FontSize="12" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding ConfiguredCount}" Foreground="{DynamicResource AccentBrush}" FontSize="16" FontWeight="Bold"
-                                               VerticalAlignment="Center"/>
-                                    <TextBlock Text="/" Foreground="{DynamicResource TextDisabledBrush}" FontSize="13" VerticalAlignment="Center" Margin="2,0"/>
-                                    <TextBlock Text="{Binding TotalCount}" Foreground="{DynamicResource TextTertiaryBrush}" FontSize="13" VerticalAlignment="Center"/>
+            <!-- ==================== 自定义标题栏 ==================== -->
+            <Grid Grid.Row="0" Height="40" Background="{DynamicResource TitleBarBrush}"
+                  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 左侧 Logo -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="18,0,0,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="LogoEmoji" Text="🐷" FontSize="16" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="排序小助手" FontSize="13" FontWeight="SemiBold"
+                               Foreground="{DynamicResource TitleBarTextBrush}" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- 中间留空 -->
+                <Border Grid.Column="1"/>
+
+                <!-- 右侧窗口按钮 -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button x:Name="BtnMinimize" Click="BtnMinimize_Click"
+                            Width="46" Height="40" Cursor="Hand"
+                            Background="Transparent" BorderThickness="0" Foreground="{DynamicResource TitleBarButtonBrush}">
+                        <TextBlock Text="─" FontSize="14"/>
+                    </Button>
+                    <Button x:Name="BtnMaximize" Click="BtnMaximize_Click"
+                            Width="46" Height="40" Cursor="Hand"
+                            Background="Transparent" BorderThickness="0" Foreground="{DynamicResource TitleBarButtonBrush}">
+                        <TextBlock Text="□" FontSize="13"/>
+                    </Button>
+                    <Button x:Name="BtnClose" Click="BtnClose_Click"
+                            Width="46" Height="40" Cursor="Hand"
+                            Background="Transparent" BorderThickness="0" Foreground="{DynamicResource TitleBarButtonBrush}">
+                        <TextBlock Text="✕" FontSize="13"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- ==================== 主内容区 ==================== -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 侧边导航栏 -->
+                <Border Grid.Column="0" Background="{DynamicResource NavBgBrush}" Width="220"
+                        BorderBrush="{DynamicResource SeparatorBrush}" BorderThickness="0,0,1,0">
+                    <DockPanel>
+                        <!-- 底部版本 -->
+                        <Border DockPanel.Dock="Bottom" Padding="0,0,0,20">
+                            <StackPanel HorizontalAlignment="Center">
+                                <Border Background="{DynamicResource InputBgBrush}" CornerRadius="10" Padding="12,4">
+                                    <TextBlock Text="v1.0.0" FontSize="10" Foreground="{DynamicResource TextDisabledBrush}"
+                                               HorizontalAlignment="Center"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- 导航内容 -->
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="0,8,0,0">
+                                <!-- Logo 区域 -->
+                                <StackPanel Margin="20,0,20,20">
+                                    <TextBlock Text="猪猪工作室" FontSize="10" Foreground="{DynamicResource TextDisabledBrush}"
+                                               HorizontalAlignment="Center"/>
                                 </StackPanel>
-                            </Border>
-                        </StackPanel>
-                    </Grid>
+
+                                <!-- 主要功能分组 -->
+                                <TextBlock Text="主要功能" FontSize="10" Foreground="{DynamicResource TextDisabledBrush}"
+                                           Margin="28,0,0,8" FontWeight="Medium"/>
+                                <RadioButton x:Name="NavHome" Content="  🏠  首页" IsChecked="True"
+                                             Style="{StaticResource NavItemStyle}" Checked="Nav_Checked"/>
+                                <RadioButton x:Name="NavSteps" Content="  📋  步骤"
+                                             Style="{StaticResource NavItemStyle}" Checked="Nav_Checked"/>
+                                <RadioButton x:Name="NavLogs" Content="  📜  日志"
+                                             Style="{StaticResource NavItemStyle}" Checked="Nav_Checked"/>
+
+                                <!-- 系统分组 -->
+                                <TextBlock Text="系统" FontSize="10" Foreground="{DynamicResource TextDisabledBrush}"
+                                           Margin="28,16,0,8" FontWeight="Medium"/>
+                                <RadioButton x:Name="NavSettings" Content="  ⚙  设置"
+                                             Style="{StaticResource NavItemStyle}" Checked="Nav_Checked"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </DockPanel>
                 </Border>
 
-                <!-- 页面内容 -->
-                <Border Grid.Row="1" x:Name="PageContentHost">
-                    <ContentControl x:Name="PageContent"/>
-                </Border>
+                <!-- 右侧内容区 -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <!-- 底部版权 -->
-                <Border Grid.Row="2" Background="{DynamicResource BgDeepBrush}" Padding="20,8"
-                        BorderBrush="{DynamicResource SeparatorBrush}" BorderThickness="0,1,0,0">
-                    <TextBlock HorizontalAlignment="Center" FontSize="11">
-                        <Run Text="猪猪工作室" Foreground="#FFCC8899"/>
-                        <Run Text=" · 图像识别自动化工具" Foreground="{DynamicResource TextDisabledBrush}"/>
-                    </TextBlock>
-                </Border>
+                    <!-- 顶部状态条 -->
+                    <Border Grid.Row="0" Background="{DynamicResource StatusBarBrush}" Padding="24,10"
+                            BorderBrush="{DynamicResource SeparatorBrush}" BorderThickness="0,0,0,1">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock x:Name="StatusIconText" Text="{Binding StatusIcon}" FontSize="16"
+                                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding StatusText}" FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Border Background="{DynamicResource InputBgBrush}" CornerRadius="8" Padding="12,5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="已配置 " Foreground="{DynamicResource TextTertiaryBrush}" FontSize="12" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ConfiguredCount}" Foreground="{DynamicResource AccentBrush}" FontSize="15" FontWeight="Bold"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBlock Text="/" Foreground="{DynamicResource TextDisabledBrush}" FontSize="12" VerticalAlignment="Center" Margin="2,0"/>
+                                        <TextBlock Text="{Binding TotalCount}" Foreground="{DynamicResource TextTertiaryBrush}" FontSize="12" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- 页面内容 -->
+                    <Border Grid.Row="1" x:Name="PageContentHost" Padding="0,0,0,0">
+                        <ContentControl x:Name="PageContent"/>
+                    </Border>
+
+                    <!-- 底部版权 -->
+                    <Border Grid.Row="2" Background="{DynamicResource BgDeepBrush}" Padding="24,8"
+                            BorderBrush="{DynamicResource SeparatorBrush}" BorderThickness="0,1,0,0">
+                        <TextBlock HorizontalAlignment="Center" FontSize="11">
+                            <Run Text="猪猪工作室" Foreground="{DynamicResource AccentBrush}" FontWeight="Medium"/>
+                            <Run Text=" · 图像识别自动化工具" Foreground="{DynamicResource TextDisabledBrush}"/>
+                        </TextBlock>
+                    </Border>
+                </Grid>
             </Grid>
         </Grid>
-    </Grid>
     </Border>
 </Window>

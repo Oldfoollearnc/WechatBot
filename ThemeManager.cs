@@ -4,7 +4,7 @@ using System.Windows.Media;
 namespace WechatBot;
 
 /// <summary>
-/// 主题管理器：运行时切换深色/浅色毛玻璃主题
+/// Theme manager: runtime switch between dark/light themes
 /// </summary>
 public static class ThemeManager
 {
@@ -15,7 +15,6 @@ public static class ThemeManager
         var app = Application.Current;
         if (app == null) return;
 
-        // 移除旧主题
         if (_currentTheme != null)
             app.Resources.MergedDictionaries.Remove(_currentTheme);
 
@@ -32,66 +31,67 @@ public static class ThemeManager
     {
         var rd = new ResourceDictionary();
 
-        // 背景层
-        rd["BgBrush"] = new SolidColorBrush(ColorFromHex("#F018181B"));
-        rd["BgDeepBrush"] = new SolidColorBrush(ColorFromHex("#F0141416"));
-        rd["SurfaceBrush"] = new SolidColorBrush(ColorFromHex("#CC2A2A2E"));
-        rd["SurfaceHoverBrush"] = new SolidColorBrush(ColorFromHex("#DD3A3A3E"));
-        rd["SurfaceBorderBrush"] = new SolidColorBrush(ColorFromHex("#33FFFFFF"));
-        rd["CardBrush"] = new SolidColorBrush(ColorFromHex("#AA2A2A2E"));
-        rd["CardHoverBrush"] = new SolidColorBrush(ColorFromHex("#CC353540"));
+        // Background layers
+        rd["BgBrush"] = new SolidColorBrush(ColorFromHex("#F0111113"));
+        rd["BgDeepBrush"] = new SolidColorBrush(ColorFromHex("#F00D0D0F"));
+        rd["SurfaceBrush"] = new SolidColorBrush(ColorFromHex("#CC222226"));
+        rd["SurfaceHoverBrush"] = new SolidColorBrush(ColorFromHex("#DD2E2E33"));
+        rd["SurfaceBorderBrush"] = new SolidColorBrush(ColorFromHex("#29FFFFFF"));
+        rd["CardBrush"] = new SolidColorBrush(ColorFromHex("#B31E1E22"));
+        rd["CardHoverBrush"] = new SolidColorBrush(ColorFromHex("#CC2A2A30"));
 
-        // 强调色
-        rd["AccentBrush"] = new SolidColorBrush(ColorFromHex("#FF00CC6A"));
-        rd["AccentHoverBrush"] = new SolidColorBrush(ColorFromHex("#FF00E678"));
-        rd["AccentDimBrush"] = new SolidColorBrush(ColorFromHex("#FF1A3A2A"));
-        rd["AccentGlowBrush"] = new SolidColorBrush(ColorFromHex("#4400CC6A"));
+        // Accent colors (emerald green)
+        rd["AccentBrush"] = new SolidColorBrush(ColorFromHex("#FF34D399"));
+        rd["AccentHoverBrush"] = new SolidColorBrush(ColorFromHex("#FF4AE0A8"));
+        rd["AccentDimBrush"] = new SolidColorBrush(ColorFromHex("#FF1A2E26"));
+        rd["AccentGlowBrush"] = new SolidColorBrush(ColorFromHex("#3334D399"));
 
-        // 功能色
-        rd["DangerBrush"] = new SolidColorBrush(ColorFromHex("#FFCC4444"));
-        rd["DangerDimBrush"] = new SolidColorBrush(ColorFromHex("#FF3A2222"));
-        rd["WarningBrush"] = new SolidColorBrush(ColorFromHex("#FFCCAA00"));
-        rd["WarningDimBrush"] = new SolidColorBrush(ColorFromHex("#FF3A3522"));
-        rd["InfoBrush"] = new SolidColorBrush(ColorFromHex("#FF4488CC"));
-        rd["InfoDimBrush"] = new SolidColorBrush(ColorFromHex("#FF1A2A3A"));
+        // Functional colors
+        rd["DangerBrush"] = new SolidColorBrush(ColorFromHex("#FFF87171"));
+        rd["DangerDimBrush"] = new SolidColorBrush(ColorFromHex("#FF2D1F1F"));
+        rd["WarningBrush"] = new SolidColorBrush(ColorFromHex("#FFFBBF24"));
+        rd["WarningDimBrush"] = new SolidColorBrush(ColorFromHex("#FF2D2A1A"));
+        rd["InfoBrush"] = new SolidColorBrush(ColorFromHex("#FF60A5FA"));
+        rd["InfoDimBrush"] = new SolidColorBrush(ColorFromHex("#FF1A2535"));
 
-        // 文字
-        rd["TextPrimaryBrush"] = new SolidColorBrush(ColorFromHex("#FFEEEEEE"));
-        rd["TextSecondaryBrush"] = new SolidColorBrush(ColorFromHex("#FFBBBBBB"));
-        rd["TextTertiaryBrush"] = new SolidColorBrush(ColorFromHex("#FF888888"));
-        rd["TextDisabledBrush"] = new SolidColorBrush(ColorFromHex("#FF555558"));
+        // Text hierarchy
+        rd["TextPrimaryBrush"] = new SolidColorBrush(ColorFromHex("#FFF5F5F5"));
+        rd["TextSecondaryBrush"] = new SolidColorBrush(ColorFromHex("#FFA1A1AA"));
+        rd["TextTertiaryBrush"] = new SolidColorBrush(ColorFromHex("#FF71717A"));
+        rd["TextDisabledBrush"] = new SolidColorBrush(ColorFromHex("#FF4A4A52"));
 
-        // 导航栏
-        rd["NavBgBrush"] = new SolidColorBrush(ColorFromHex("#EE252528"));
-        rd["NavItemHoverBrush"] = new SolidColorBrush(ColorFromHex("#33FFFFFF"));
-        rd["NavIndicatorBrush"] = new SolidColorBrush(ColorFromHex("#FF00CC6A"));
+        // Navigation
+        rd["NavBgBrush"] = new SolidColorBrush(ColorFromHex("#F018181B"));
+        rd["NavItemHoverBrush"] = new SolidColorBrush(ColorFromHex("#1AFFFFFF"));
+        rd["NavIndicatorBrush"] = new SolidColorBrush(ColorFromHex("#FF34D399"));
 
-        // 状态栏
-        rd["StatusBarBrush"] = new SolidColorBrush(ColorFromHex("#EE252528"));
+        // Status bar
+        rd["StatusBarBrush"] = new SolidColorBrush(ColorFromHex("#F018181B"));
 
-        // 日志 Tag
-        rd["TagInfoBrush"] = new SolidColorBrush(ColorFromHex("#3300CC6A"));
-        rd["TagWarnBrush"] = new SolidColorBrush(ColorFromHex("#33CCAA00"));
-        rd["TagErrorBrush"] = new SolidColorBrush(ColorFromHex("#33CC4444"));
+        // Tags
+        rd["TagInfoBrush"] = new SolidColorBrush(ColorFromHex("#2634D399"));
+        rd["TagWarnBrush"] = new SolidColorBrush(ColorFromHex("#26FBBF24"));
+        rd["TagErrorBrush"] = new SolidColorBrush(ColorFromHex("#26F87171"));
 
-        // 输入框
-        rd["InputBgBrush"] = new SolidColorBrush(ColorFromHex("#FF3D3D40"));
-        rd["InputBorderBrush"] = new SolidColorBrush(ColorFromHex("#FF555558"));
-        rd["InputFocusBrush"] = new SolidColorBrush(ColorFromHex("#FF00CC6A"));
+        // Input
+        rd["InputBgBrush"] = new SolidColorBrush(ColorFromHex("#FF27272A"));
+        rd["InputBorderBrush"] = new SolidColorBrush(ColorFromHex("#FF3F3F46"));
+        rd["InputFocusBrush"] = new SolidColorBrush(ColorFromHex("#FF34D399"));
 
-        // 滚动条
-        rd["ScrollThumbBrush"] = new SolidColorBrush(ColorFromHex("#44FFFFFF"));
-        rd["ScrollThumbHoverBrush"] = new SolidColorBrush(ColorFromHex("#66FFFFFF"));
+        // Scrollbar
+        rd["ScrollThumbBrush"] = new SolidColorBrush(ColorFromHex("#33FFFFFF"));
+        rd["ScrollThumbHoverBrush"] = new SolidColorBrush(ColorFromHex("#55FFFFFF"));
 
-        // 分隔线
-        rd["SeparatorBrush"] = new SolidColorBrush(ColorFromHex("#FF3A3A3E"));
+        // Separator
+        rd["SeparatorBrush"] = new SolidColorBrush(ColorFromHex("#FF27272A"));
 
-        // 标题栏
-        rd["TitleBarBrush"] = new SolidColorBrush(ColorFromHex("#FF1A1A1E"));
-        rd["TitleBarTextBrush"] = new SolidColorBrush(ColorFromHex("#FFCCCCCC"));
-        rd["TitleBarButtonBrush"] = new SolidColorBrush(ColorFromHex("#FF999999"));
+        // Title bar
+        rd["TitleBarBrush"] = new SolidColorBrush(ColorFromHex("#FF141416"));
+        rd["TitleBarTextBrush"] = new SolidColorBrush(ColorFromHex("#FFD4D4D8"));
+        rd["TitleBarButtonBrush"] = new SolidColorBrush(ColorFromHex("#FF71717A"));
+        rd["TitleBarCloseHoverBrush"] = new SolidColorBrush(ColorFromHex("#FFE8525A"));
 
-        // HandyControl 深色皮肤
+        // HandyControl dark skin
         rd.MergedDictionaries.Add(new ResourceDictionary
         {
             Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml")
@@ -108,66 +108,67 @@ public static class ThemeManager
     {
         var rd = new ResourceDictionary();
 
-        // 背景层
-        rd["BgBrush"] = new SolidColorBrush(ColorFromHex("#F0F5F5F5"));
-        rd["BgDeepBrush"] = new SolidColorBrush(ColorFromHex("#F0EEEEEE"));
+        // Background layers
+        rd["BgBrush"] = new SolidColorBrush(ColorFromHex("#F0F8F8F9"));
+        rd["BgDeepBrush"] = new SolidColorBrush(ColorFromHex("#F0F0F0F2"));
         rd["SurfaceBrush"] = new SolidColorBrush(ColorFromHex("#CCFFFFFF"));
-        rd["SurfaceHoverBrush"] = new SolidColorBrush(ColorFromHex("#DDF0F0F0"));
-        rd["SurfaceBorderBrush"] = new SolidColorBrush(ColorFromHex("#22000000"));
-        rd["CardBrush"] = new SolidColorBrush(ColorFromHex("#AAFFFFFF"));
-        rd["CardHoverBrush"] = new SolidColorBrush(ColorFromHex("#CCF8F8F8"));
+        rd["SurfaceHoverBrush"] = new SolidColorBrush(ColorFromHex("#DDF5F5F7"));
+        rd["SurfaceBorderBrush"] = new SolidColorBrush(ColorFromHex("#1A000000"));
+        rd["CardBrush"] = new SolidColorBrush(ColorFromHex("#B3FFFFFF"));
+        rd["CardHoverBrush"] = new SolidColorBrush(ColorFromHex("#CCFAFAFA"));
 
-        // 强调色
-        rd["AccentBrush"] = new SolidColorBrush(ColorFromHex("#FF00A854"));
-        rd["AccentHoverBrush"] = new SolidColorBrush(ColorFromHex("#FF00CC6A"));
-        rd["AccentDimBrush"] = new SolidColorBrush(ColorFromHex("#FFE8F5E9"));
-        rd["AccentGlowBrush"] = new SolidColorBrush(ColorFromHex("#3300A854"));
+        // Accent colors
+        rd["AccentBrush"] = new SolidColorBrush(ColorFromHex("#FF059669"));
+        rd["AccentHoverBrush"] = new SolidColorBrush(ColorFromHex("#FF10B981"));
+        rd["AccentDimBrush"] = new SolidColorBrush(ColorFromHex("#FFE6F7F0"));
+        rd["AccentGlowBrush"] = new SolidColorBrush(ColorFromHex("#26059669"));
 
-        // 功能色
-        rd["DangerBrush"] = new SolidColorBrush(ColorFromHex("#FFD32F2F"));
-        rd["DangerDimBrush"] = new SolidColorBrush(ColorFromHex("#FFFCE4EC"));
-        rd["WarningBrush"] = new SolidColorBrush(ColorFromHex("#FFF9A825"));
-        rd["WarningDimBrush"] = new SolidColorBrush(ColorFromHex("#FFFFF8E1"));
-        rd["InfoBrush"] = new SolidColorBrush(ColorFromHex("#FF1976D2"));
-        rd["InfoDimBrush"] = new SolidColorBrush(ColorFromHex("#FFE3F2FD"));
+        // Functional colors
+        rd["DangerBrush"] = new SolidColorBrush(ColorFromHex("#FFDC2626"));
+        rd["DangerDimBrush"] = new SolidColorBrush(ColorFromHex("#FFFEE2E2"));
+        rd["WarningBrush"] = new SolidColorBrush(ColorFromHex("#FFD97706"));
+        rd["WarningDimBrush"] = new SolidColorBrush(ColorFromHex("#FFFFFBEB"));
+        rd["InfoBrush"] = new SolidColorBrush(ColorFromHex("#FF2563EB"));
+        rd["InfoDimBrush"] = new SolidColorBrush(ColorFromHex("#FFEFF6FF"));
 
-        // 文字
-        rd["TextPrimaryBrush"] = new SolidColorBrush(ColorFromHex("#FF1A1A1A"));
-        rd["TextSecondaryBrush"] = new SolidColorBrush(ColorFromHex("#FF555555"));
-        rd["TextTertiaryBrush"] = new SolidColorBrush(ColorFromHex("#FF888888"));
-        rd["TextDisabledBrush"] = new SolidColorBrush(ColorFromHex("#FFBBBBBB"));
+        // Text hierarchy
+        rd["TextPrimaryBrush"] = new SolidColorBrush(ColorFromHex("#FF18181B"));
+        rd["TextSecondaryBrush"] = new SolidColorBrush(ColorFromHex("#FF52525B"));
+        rd["TextTertiaryBrush"] = new SolidColorBrush(ColorFromHex("#FFA1A1AA"));
+        rd["TextDisabledBrush"] = new SolidColorBrush(ColorFromHex("#FFD4D4D8"));
 
-        // 导航栏
-        rd["NavBgBrush"] = new SolidColorBrush(ColorFromHex("#EEFFFFFF"));
-        rd["NavItemHoverBrush"] = new SolidColorBrush(ColorFromHex("#11000000"));
-        rd["NavIndicatorBrush"] = new SolidColorBrush(ColorFromHex("#FF00A854"));
+        // Navigation
+        rd["NavBgBrush"] = new SolidColorBrush(ColorFromHex("#F0FFFFFF"));
+        rd["NavItemHoverBrush"] = new SolidColorBrush(ColorFromHex("#0D000000"));
+        rd["NavIndicatorBrush"] = new SolidColorBrush(ColorFromHex("#FF059669"));
 
-        // 状态栏
-        rd["StatusBarBrush"] = new SolidColorBrush(ColorFromHex("#EEFFFFFF"));
+        // Status bar
+        rd["StatusBarBrush"] = new SolidColorBrush(ColorFromHex("#F0FFFFFF"));
 
-        // 日志 Tag
-        rd["TagInfoBrush"] = new SolidColorBrush(ColorFromHex("#2200A854"));
-        rd["TagWarnBrush"] = new SolidColorBrush(ColorFromHex("#22F9A825"));
-        rd["TagErrorBrush"] = new SolidColorBrush(ColorFromHex("#22D32F2F"));
+        // Tags
+        rd["TagInfoBrush"] = new SolidColorBrush(ColorFromHex("#1A059669"));
+        rd["TagWarnBrush"] = new SolidColorBrush(ColorFromHex("#1AD97706"));
+        rd["TagErrorBrush"] = new SolidColorBrush(ColorFromHex("#1ADC2626"));
 
-        // 输入框
-        rd["InputBgBrush"] = new SolidColorBrush(ColorFromHex("#FFF0F0F0"));
-        rd["InputBorderBrush"] = new SolidColorBrush(ColorFromHex("#FFD0D0D0"));
-        rd["InputFocusBrush"] = new SolidColorBrush(ColorFromHex("#FF00A854"));
+        // Input
+        rd["InputBgBrush"] = new SolidColorBrush(ColorFromHex("#FFF4F4F5"));
+        rd["InputBorderBrush"] = new SolidColorBrush(ColorFromHex("#FFE4E4E7"));
+        rd["InputFocusBrush"] = new SolidColorBrush(ColorFromHex("#FF059669"));
 
-        // 滚动条
-        rd["ScrollThumbBrush"] = new SolidColorBrush(ColorFromHex("#22000000"));
-        rd["ScrollThumbHoverBrush"] = new SolidColorBrush(ColorFromHex("#44000000"));
+        // Scrollbar
+        rd["ScrollThumbBrush"] = new SolidColorBrush(ColorFromHex("#1A000000"));
+        rd["ScrollThumbHoverBrush"] = new SolidColorBrush(ColorFromHex("#33000000"));
 
-        // 分隔线
-        rd["SeparatorBrush"] = new SolidColorBrush(ColorFromHex("#FFE0E0E0"));
+        // Separator
+        rd["SeparatorBrush"] = new SolidColorBrush(ColorFromHex("#FFE4E4E7"));
 
-        // 标题栏
-        rd["TitleBarBrush"] = new SolidColorBrush(ColorFromHex("#FFF5F5F5"));
-        rd["TitleBarTextBrush"] = new SolidColorBrush(ColorFromHex("#FF333333"));
-        rd["TitleBarButtonBrush"] = new SolidColorBrush(ColorFromHex("#FF666666"));
+        // Title bar
+        rd["TitleBarBrush"] = new SolidColorBrush(ColorFromHex("#FFFAFAFA"));
+        rd["TitleBarTextBrush"] = new SolidColorBrush(ColorFromHex("#FF27272A"));
+        rd["TitleBarButtonBrush"] = new SolidColorBrush(ColorFromHex("#FF71717A"));
+        rd["TitleBarCloseHoverBrush"] = new SolidColorBrush(ColorFromHex("#FFDC2626"));
 
-        // HandyControl 浅色皮肤
+        // HandyControl light skin
         rd.MergedDictionaries.Add(new ResourceDictionary
         {
             Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml")
