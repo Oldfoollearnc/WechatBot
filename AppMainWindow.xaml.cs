@@ -1,6 +1,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -60,6 +61,29 @@ public partial class AppMainWindow : Window
             _imageRec.Dispose();
         };
     }
+
+    #region 窗口按钮
+
+    private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ClickCount == 2)
+            BtnMaximize_Click(sender, e);
+        else
+            DragMove();
+    }
+
+    private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        => WindowState = WindowState.Minimized;
+
+    private void BtnMaximize_Click(object sender, RoutedEventArgs e)
+        => WindowState = WindowState == WindowState.Maximized
+            ? WindowState.Normal
+            : WindowState.Maximized;
+
+    private void BtnClose_Click(object sender, RoutedEventArgs e)
+        => Close();
+
+    #endregion
 
     #region 导航 + 页面切换动画
 
