@@ -27,6 +27,9 @@ public partial class AppMainWindow : Window
     private LogsPage? _logsPage;
     private SettingsPage? _settingsPage;
 
+    // 悬浮状态窗口
+    private FloatingStatusWindow? _floatingStatus;
+
     private const int WM_COMMAND = 0x0111;
 
     public AppMainWindow()
@@ -58,11 +61,13 @@ public partial class AppMainWindow : Window
         {
             InitTrayIcon();
             AnimateWindowStartup();
+            InitFloatingStatus();
         };
         Closed += (_, _) =>
         {
             _scheduleTimer?.Stop();
             _trayIcon?.Dispose();
+            _floatingStatus?.Close();
             _hwndSource?.RemoveHook(WndProc);
             _imageRec.Dispose();
         };
@@ -210,6 +215,40 @@ public partial class AppMainWindow : Window
         WindowState = WindowState.Normal;
         Activate();
         _trayIcon?.Hide();
+    }
+
+    #endregion
+
+    #region 悬浮状态窗口
+
+    private void InitFloatingStatus()
+    {
+        _floatingStatus = new FloatingStatusWindow();
+
+        // 监听运行状态变化
+        _viewModel.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(MainViewModel.IsRunning))
+            {
+                if (_viewModel.IsRunning)
+                {
+                    _floatingStatus.UpdateStatus("⏳", "正在执行...", "");
+                    _floatingStatus.ShowWithAnimation();
+                }
+                else
+                {
+                    _floatingStatus.HideWithAnimation();
+                }
+            }
+            else if (e.PropertyName == nameof(MainViewModel.StatusText) && _viewModel.IsRunning)
+            {
+                _floatingStatus.UpdateStatus(
+                    _viewModel.StatusIcon,
+                    _viewModel.StatusText,
+                    $"步骤 {_viewModel.CurrentStepIndex}/{_viewModel.TotalCount}"
+                );
+            }
+        };
     }
 
     #endregion
