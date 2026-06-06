@@ -133,17 +133,7 @@ public partial class AppMainWindow : Window
             // 淡入新页面
             var fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(250))
             { EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut } };
-            var slideIn = new DoubleAnimation(10, 0, TimeSpan.FromMilliseconds(300))
-            { EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut } };
-
             PageContent.BeginAnimation(OpacityProperty, fadeIn);
-            var transform = PageContent.RenderTransform as TranslateTransform;
-            if (transform == null)
-            {
-                transform = new TranslateTransform();
-                PageContent.RenderTransform = transform;
-            }
-            transform.BeginAnimation(TranslateTransform.YProperty, slideIn);
         };
         PageContent.BeginAnimation(OpacityProperty, fadeOut);
     }

@@ -126,11 +126,7 @@
 
                 <!-- 页面内容 -->
                 <Border Grid.Row="1" x:Name="PageContentHost">
-                    <ContentControl x:Name="PageContent" RenderTransformOrigin="0.5,0.5">
-                        <ContentControl.RenderTransform>
-                            <TranslateTransform X="0" Y="0"/>
-                        </ContentControl.RenderTransform>
-                    </ContentControl>
+                    <ContentControl x:Name="PageContent"/>
                 </Border>
 
                 <!-- 底部版权 -->
