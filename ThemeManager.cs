@@ -86,6 +86,11 @@ public static class ThemeManager
         // 分隔线
         rd["SeparatorBrush"] = new SolidColorBrush(ColorFromHex("#FF3A3A3E"));
 
+        // 标题栏
+        rd["TitleBarBrush"] = new SolidColorBrush(ColorFromHex("#FF1A1A1E"));
+        rd["TitleBarTextBrush"] = new SolidColorBrush(ColorFromHex("#FFCCCCCC"));
+        rd["TitleBarButtonBrush"] = new SolidColorBrush(ColorFromHex("#FF999999"));
+
         // HandyControl 深色皮肤
         rd.MergedDictionaries.Add(new ResourceDictionary
         {
@@ -156,6 +161,11 @@ public static class ThemeManager
 
         // 分隔线
         rd["SeparatorBrush"] = new SolidColorBrush(ColorFromHex("#FFE0E0E0"));
+
+        // 标题栏
+        rd["TitleBarBrush"] = new SolidColorBrush(ColorFromHex("#FFF5F5F5"));
+        rd["TitleBarTextBrush"] = new SolidColorBrush(ColorFromHex("#FF333333"));
+        rd["TitleBarButtonBrush"] = new SolidColorBrush(ColorFromHex("#FF666666"));
 
         // HandyControl 浅色皮肤
         rd.MergedDictionaries.Add(new ResourceDictionary
