@@ -32,6 +32,7 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty] private int _maxRetry = 3;
     [ObservableProperty] private double _retryWait = 2.0;
     [ObservableProperty] private double _matchThreshold = 0.8;
+    [ObservableProperty] private string _theme = "Dark";
     [ObservableProperty] private bool _scheduleEnabled;
     [ObservableProperty] private int _scheduleHour = 10;
     [ObservableProperty] private int _scheduleMinute;
@@ -217,6 +218,7 @@ public partial class MainViewModel : ObservableObject
         MaxRetry = _settings.Retry.MaxAttempts;
         RetryWait = _settings.Retry.WaitBetween;
         MatchThreshold = _settings.Recognition.MatchThreshold;
+        Theme = _settings.Theme;
         ScheduleEnabled = _settings.Schedule.Enabled;
 
         if (_settings.Schedule.Time.Split(':') is [var h, var m]
@@ -238,6 +240,7 @@ public partial class MainViewModel : ObservableObject
         _settings.Retry.MaxAttempts = MaxRetry;
         _settings.Retry.WaitBetween = RetryWait;
         _settings.Recognition.MatchThreshold = MatchThreshold;
+        _settings.Theme = Theme;
         _settings.Schedule.Enabled = ScheduleEnabled;
         _settings.Schedule.Time = $"{ScheduleHour:00}:{ScheduleMinute:00}";
         _settings.Schedule.Days = ScheduleDays

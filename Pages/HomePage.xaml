@@ -2,13 +2,14 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:hc="https://handyorg.github.io/handycontrol"
-             Background="#FF202020">
+             Background="{DynamicResource BgBrush}"
+             Loaded="HomePage_Loaded">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,20">
         <StackPanel>
 
             <!-- 标题 -->
-            <TextBlock Text="仪表盘" FontSize="24" FontWeight="Bold" Foreground="#FFEEEEEE" Margin="0,0,0,20"/>
+            <TextBlock Text="仪表盘" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
 
             <!-- 三列指标卡片 -->
             <Grid Margin="0,0,0,24">
@@ -21,41 +22,76 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- 总步骤 -->
-                <Border Grid.Column="0" Background="#FF2D2D30" CornerRadius="8" Padding="20,16">
+                <Border x:Name="CardTotal" Grid.Column="0" Background="{DynamicResource CardBrush}" CornerRadius="8" Padding="20,16"
+                        Cursor="Hand" Opacity="0">
+                    <Border.RenderTransform>
+                        <TranslateTransform Y="20"/>
+                    </Border.RenderTransform>
                     <StackPanel>
-                        <TextBlock Text="总步骤" FontSize="12" Foreground="#FF888888" Margin="0,0,0,8"/>
-                        <TextBlock Text="{Binding TotalCount}" FontSize="32" FontWeight="Bold" Foreground="#FFEEEEEE"/>
-                        <TextBlock Text="个自动化步骤" FontSize="11" Foreground="#FF666666" Margin="0,4,0,0"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Border Background="{DynamicResource InfoDimBrush}" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
+                                <TextBlock Text="📊" FontSize="12"/>
+                            </Border>
+                            <TextBlock Text="总步骤" FontSize="12" Foreground="{DynamicResource TextTertiaryBrush}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding TotalCount}" FontSize="36" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                        <TextBlock Text="个自动化步骤" FontSize="11" Foreground="{DynamicResource TextDisabledBrush}" Margin="0,4,0,0"/>
                     </StackPanel>
                 </Border>
 
                 <!-- 已配置 -->
-                <Border Grid.Column="2" Background="#FF2D2D30" CornerRadius="8" Padding="20,16">
+                <Border x:Name="CardConfigured" Grid.Column="2" Background="{DynamicResource CardBrush}" CornerRadius="8" Padding="20,16"
+                        Cursor="Hand" Opacity="0">
+                    <Border.RenderTransform>
+                        <TranslateTransform Y="20"/>
+                    </Border.RenderTransform>
                     <StackPanel>
-                        <TextBlock Text="已配置" FontSize="12" Foreground="#FF888888" Margin="0,0,0,8"/>
-                        <TextBlock Text="{Binding ConfiguredCount}" FontSize="32" FontWeight="Bold" Foreground="#FF00CC6A"/>
-                        <ProgressBar Value="{Binding ProgressPercent}" Maximum="100" Height="4"
-                                     Background="#FF3D3D40" Foreground="#FF00CC6A" BorderThickness="0"
-                                     Margin="0,8,0,0"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Border Background="{DynamicResource AccentDimBrush}" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
+                                <TextBlock Text="✅" FontSize="12"/>
+                            </Border>
+                            <TextBlock Text="已配置" FontSize="12" Foreground="{DynamicResource TextTertiaryBrush}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding ConfiguredCount}" FontSize="36" FontWeight="Bold" Foreground="{DynamicResource AccentBrush}"/>
+                        <Border Background="{DynamicResource InputBgBrush}" CornerRadius="3" Height="6" Margin="0,10,0,0">
+                            <Border x:Name="ProgressFill" Background="{DynamicResource AccentBrush}" CornerRadius="3"
+                                    HorizontalAlignment="Left" Height="6" Width="0"/>
+                        </Border>
+                        <TextBlock FontSize="11" Foreground="{DynamicResource TextDisabledBrush}" Margin="0,6,0,0">
+                            <Run Text="完成度 "/>
+                            <Run Text="{Binding ProgressPercent, StringFormat={}{0:F0}}"/>
+                            <Run Text="%"/>
+                        </TextBlock>
                     </StackPanel>
                 </Border>
 
                 <!-- 状态 -->
-                <Border Grid.Column="4" Background="#FF2D2D30" CornerRadius="8" Padding="20,16">
+                <Border x:Name="CardStatus" Grid.Column="4" Background="{DynamicResource CardBrush}" CornerRadius="8" Padding="20,16"
+                        Cursor="Hand" Opacity="0">
+                    <Border.RenderTransform>
+                        <TranslateTransform Y="20"/>
+                    </Border.RenderTransform>
                     <StackPanel>
-                        <TextBlock Text="状态" FontSize="12" Foreground="#FF888888" Margin="0,0,0,8"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Border Background="{DynamicResource WarningDimBrush}" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
+                                <TextBlock Text="⚡" FontSize="12"/>
+                            </Border>
+                            <TextBlock Text="状态" FontSize="12" Foreground="{DynamicResource TextTertiaryBrush}" VerticalAlignment="Center"/>
+                        </StackPanel>
                         <TextBlock Text="{Binding StatusIcon}" FontSize="28" Margin="0,0,0,4"/>
-                        <TextBlock Text="{Binding StatusText}" FontSize="13" Foreground="#FFCCCCCC"/>
-                        <TextBlock FontSize="11" Foreground="#FF666666" Margin="0,4,0,0">
-                            <Run Text="上次运行："/>
-                            <Run Text="{Binding LastRunTime}"/>
-                        </TextBlock>
+                        <TextBlock Text="{Binding StatusText}" FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <Border Background="{DynamicResource InputBgBrush}" CornerRadius="4" Padding="8,4" Margin="0,8,0,0">
+                            <TextBlock FontSize="11" Foreground="{DynamicResource TextTertiaryBrush}">
+                                <Run Text="上次："/>
+                                <Run Text="{Binding LastRunTime}" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                            </TextBlock>
+                        </Border>
                     </StackPanel>
                 </Border>
             </Grid>
 
             <!-- 快捷操作 -->
-            <TextBlock Text="快捷操作" FontSize="16" FontWeight="SemiBold" Foreground="#FFEEEEEE" Margin="0,0,0,12"/>
+            <TextBlock Text="快捷操作" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12"/>
             <Grid Margin="0,0,0,24">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -65,35 +101,35 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0" Background="#FF1A3A2A" CornerRadius="8" Padding="20,16"
-                        Cursor="Hand" MouseLeftButtonDown="Run_Click">
+                <Border x:Name="BtnRun" Grid.Column="0" Background="{DynamicResource AccentDimBrush}" CornerRadius="8" Padding="20,16"
+                        Cursor="Hand" MouseLeftButtonDown="Run_Click" Style="{StaticResource ActionCard}">
                     <StackPanel HorizontalAlignment="Center">
-                        <TextBlock Text="🚀" FontSize="28" HorizontalAlignment="Center" Margin="0,0,0,8"/>
-                        <TextBlock Text="开始运行" FontSize="14" FontWeight="SemiBold" Foreground="#FF00CC6A"
+                        <TextBlock Text="🚀" FontSize="32" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="开始运行" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}"
                                    HorizontalAlignment="Center"/>
-                        <TextBlock Text="执行全部14步" FontSize="11" Foreground="#FF666666"
+                        <TextBlock Text="执行全部14步" FontSize="11" Foreground="{DynamicResource TextDisabledBrush}"
                                    HorizontalAlignment="Center" Margin="0,4,0,0"/>
                     </StackPanel>
                 </Border>
 
-                <Border Grid.Column="2" Background="#FF1A2A3A" CornerRadius="8" Padding="20,16"
-                        Cursor="Hand" MouseLeftButtonDown="Test_Click">
+                <Border x:Name="BtnTest" Grid.Column="2" Background="{DynamicResource InfoDimBrush}" CornerRadius="8" Padding="20,16"
+                        Cursor="Hand" MouseLeftButtonDown="Test_Click" Style="{StaticResource ActionCard}">
                     <StackPanel HorizontalAlignment="Center">
-                        <TextBlock Text="🧪" FontSize="28" HorizontalAlignment="Center" Margin="0,0,0,8"/>
-                        <TextBlock Text="测试运行" FontSize="14" FontWeight="SemiBold" Foreground="#FF4488CC"
+                        <TextBlock Text="🧪" FontSize="32" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="测试运行" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource InfoBrush}"
                                    HorizontalAlignment="Center"/>
-                        <TextBlock Text="最小化窗口后执行" FontSize="11" Foreground="#FF666666"
+                        <TextBlock Text="最小化窗口后执行" FontSize="11" Foreground="{DynamicResource TextDisabledBrush}"
                                    HorizontalAlignment="Center" Margin="0,4,0,0"/>
                     </StackPanel>
                 </Border>
 
-                <Border Grid.Column="4" Background="#FF3A2A1A" CornerRadius="8" Padding="20,16"
-                        Cursor="Hand" MouseLeftButtonDown="Stop_Click">
+                <Border x:Name="BtnStop" Grid.Column="4" Background="{DynamicResource DangerDimBrush}" CornerRadius="8" Padding="20,16"
+                        Cursor="Hand" MouseLeftButtonDown="Stop_Click" Style="{StaticResource ActionCard}">
                     <StackPanel HorizontalAlignment="Center">
-                        <TextBlock Text="⏹" FontSize="28" HorizontalAlignment="Center" Margin="0,0,0,8"/>
-                        <TextBlock Text="停止" FontSize="14" FontWeight="SemiBold" Foreground="#FFCC6644"
+                        <TextBlock Text="⏹" FontSize="32" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="停止" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource DangerBrush}"
                                    HorizontalAlignment="Center"/>
-                        <TextBlock Text="中断当前任务" FontSize="11" Foreground="#FF666666"
+                        <TextBlock Text="中断当前任务" FontSize="11" Foreground="{DynamicResource TextDisabledBrush}"
                                    HorizontalAlignment="Center" Margin="0,4,0,0"/>
                     </StackPanel>
                 </Border>
@@ -106,32 +142,47 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="最近日志" FontSize="16" FontWeight="SemiBold"
-                           Foreground="#FFEEEEEE" Margin="0,0,0,12"/>
-                <TextBlock Grid.Column="1" Text="查看全部 →" FontSize="12" Foreground="#FF4488CC"
+                           Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12"/>
+                <TextBlock Grid.Column="1" Text="查看全部 →" FontSize="12" Foreground="{DynamicResource InfoBrush}"
                            Cursor="Hand" VerticalAlignment="Center" Margin="0,0,0,12"/>
             </Grid>
 
-            <Border Background="#FF1E1E22" CornerRadius="8" Padding="16,12" MaxHeight="240">
+            <Border Background="{DynamicResource BgDeepBrush}" CornerRadius="8" Padding="16,12" MaxHeight="240">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding Logs}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,0,0,4">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="65"/>
-                                        <ColumnDefinition Width="35"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding TimeText}" FontSize="11"
-                                               FontFamily="Consolas" Foreground="#FF666666"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Icon}" FontSize="11"
-                                               Foreground="{Binding LevelColor}"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding Message}" FontSize="11"
-                                               Foreground="#FFAAAAAA" TextTrimming="CharacterEllipsis"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <Grid>
+                        <!-- 空状态 -->
+                        <StackPanel x:Name="EmptyLogState" Style="{StaticResource EmptyState}" Margin="0,20">
+                            <TextBlock Text="📭" FontSize="32" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                            <TextBlock Text="暂无日志" FontSize="13" Foreground="{DynamicResource TextDisabledBrush}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="运行任务后日志将显示在这里" FontSize="11" Foreground="{DynamicResource TextDisabledBrush}"
+                                       HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <ItemsControl x:Name="LogItems" ItemsSource="{Binding Logs}" Visibility="Collapsed">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="65"/>
+                                            <ColumnDefinition Width="38"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding TimeText}" FontSize="11"
+                                                   FontFamily="{StaticResource MonoFont}" Foreground="{DynamicResource TextDisabledBrush}"
+                                                   VerticalAlignment="Center"/>
+                                        <Border Grid.Column="1" CornerRadius="3" Padding="4,1"
+                                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Background="{DynamicResource TagInfoBrush}">
+                                            <TextBlock Text="{Binding LevelText}" FontSize="9" FontWeight="SemiBold"
+                                                       Foreground="{Binding LevelColor}" HorizontalAlignment="Center"/>
+                                        </Border>
+                                        <TextBlock Grid.Column="2" Text="{Binding Message}" FontSize="11"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}" TextTrimming="CharacterEllipsis"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
                 </ScrollViewer>
             </Border>
 

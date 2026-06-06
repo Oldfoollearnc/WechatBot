@@ -4,24 +4,69 @@
         Title="框选区域"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="#40000000"
+        Background="#60000000"
         Topmost="True"
         WindowState="Maximized"
         Cursor="Cross"
         ShowInTaskbar="False"
-        Focusable="True">
+        Focusable="True"
+        FontFamily="Microsoft YaHei UI, Segoe UI">
 
     <Canvas x:Name="DrawCanvas" Background="Transparent"
             MouseLeftButtonDown="Canvas_MouseDown"
             MouseMove="Canvas_MouseMove"
             MouseLeftButtonUp="Canvas_MouseUp">
 
-        <TextBlock Canvas.Left="20" Canvas.Top="20"
-                   Text="按住左键拖拽框选按钮区域，松开完成 | ESC 取消"
-                   FontSize="16" Foreground="White" FontWeight="Bold"/>
+        <!-- 顶部提示条 -->
+        <Canvas.Left>0</Canvas.Left>
+        <Border Canvas.Left="0" Canvas.Top="0" Background="#CC1E1E22" Padding="0,10"
+                Width="{Binding ActualWidth, ElementName=DrawCanvas}">
+            <TextBlock Text="🖱 按住左键拖拽框选按钮区域，松开完成   |   ESC 取消"
+                       FontSize="15" Foreground="#FFCCCCCC" FontWeight="SemiBold"
+                       HorizontalAlignment="Center"/>
+        </Border>
 
+        <!-- 十字准线 - 水平 -->
+        <Line x:Name="CrosshairH" Stroke="#55FFFFFF" StrokeThickness="1"
+              X1="0" X2="0" Visibility="Collapsed"
+              StrokeDashArray="4 3"/>
+
+        <!-- 十字准线 - 垂直 -->
+        <Line x:Name="CrosshairV" Stroke="#55FFFFFF" StrokeThickness="1"
+              Y1="0" Y2="0" Visibility="Collapsed"
+              StrokeDashArray="4 3"/>
+
+        <!-- 选区矩形 -->
         <Rectangle x:Name="SelectionRect"
-                   Stroke="#FF89B4FA" StrokeThickness="3"
-                   Fill="#3089B4FA" Visibility="Collapsed"/>
+                   Stroke="#FF89B4FA" StrokeThickness="2.5"
+                   Fill="#2089B4FA" Visibility="Collapsed">
+            <Rectangle.Effect>
+                <DropShadowEffect BlurRadius="6" ShadowDepth="0" Opacity="0.4" Color="#FF89B4FA"/>
+            </Rectangle.Effect>
+        </Rectangle>
+
+        <!-- 选区尺寸标签 -->
+        <Border x:Name="SizeLabel" Background="#DD1E1E22" CornerRadius="5"
+                Padding="10,5" Visibility="Collapsed"
+                BorderBrush="#FF89B4FA" BorderThickness="1">
+            <TextBlock x:Name="SizeLabelText" FontSize="13" Foreground="White" FontWeight="SemiBold"
+                       FontFamily="Consolas"/>
+        </Border>
+
+        <!-- 确认/取消按钮（选区完成后显示） -->
+        <Border x:Name="ConfirmPanel" Background="#DD1E1E22" CornerRadius="8"
+                Padding="16,12" Visibility="Collapsed"
+                BorderBrush="#FF3A3A3E" BorderThickness="1">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="ConfirmBtn" Content="✔ 确认截取" Click="ConfirmBtn_Click"
+                        FontSize="13" Padding="18,7" Cursor="Hand"
+                        Foreground="White" Background="#FF2D6A4F" BorderThickness="0"
+                        Margin="0,0,10,0"/>
+                <Button x:Name="CancelBtn" Content="✖ 取消" Click="CancelBtn_Click"
+                        FontSize="13" Padding="18,7" Cursor="Hand"
+                        Foreground="#FFCCCCCC" Background="#FF3D3D40" BorderThickness="1"
+                        BorderBrush="#FF555558"/>
+            </StackPanel>
+        </Border>
     </Canvas>
 </Window>

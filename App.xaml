@@ -4,11 +4,134 @@
              StartupUri="AppMainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!-- HandyControl 基础样式 -->
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
+
+            <!-- ==================== 全局字体 ==================== -->
+            <FontFamily x:Key="GlobalFont">Microsoft YaHei UI, Segoe UI, sans-serif</FontFamily>
+            <FontFamily x:Key="MonoFont">Cascadia Code, Consolas, Courier New</FontFamily>
+
+            <!-- ==================== 动画缓动函数 ==================== -->
+            <CubicEase x:Key="EaseOut" EasingMode="EaseOut"/>
+            <QuadraticEase x:Key="EaseInOut" EasingMode="EaseInOut"/>
+
+            <!-- ==================== 全局 ScrollBar 美化 ==================== -->
+            <Style TargetType="ScrollViewer">
+                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+            </Style>
+
+            <Style TargetType="ScrollBar">
+                <Setter Property="Width" Value="6"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Width" Value="10"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- ==================== 导航项样式 ==================== -->
+            <Style x:Key="NavItemStyle" TargetType="RadioButton">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="Padding" Value="20,12"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="GroupName" Value="Nav"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border x:Name="Bg" Background="{TemplateBinding Background}"
+                                    Padding="{TemplateBinding Padding}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border x:Name="Indicator" Grid.Column="0" Width="3"
+                                            Background="{DynamicResource AccentBrush}"
+                                            CornerRadius="1.5" Margin="0,2,12,2"
+                                            VerticalAlignment="Stretch" Opacity="0"/>
+                                    <ContentPresenter Grid.Column="1" HorizontalAlignment="Left"
+                                                      VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bg" Property="Background"
+                                            Value="{DynamicResource NavItemHoverBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="Bg" Property="Background"
+                                            Value="{DynamicResource AccentDimBrush}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter TargetName="Indicator" Property="Opacity" Value="1"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- ==================== 快捷操作卡片 ==================== -->
+            <Style x:Key="ActionCard" TargetType="Border">
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="20,16"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="{DynamicResource SurfaceBorderBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- ==================== 步骤卡片 ==================== -->
+            <Style x:Key="StepCard" TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="16,12"/>
+                <Setter Property="BorderThickness" Value="3,0,0,0"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource CardHoverBrush}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- ==================== 空状态 ==================== -->
+            <Style x:Key="EmptyState" TargetType="StackPanel">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Opacity" Value="0.5"/>
+            </Style>
+
+            <!-- ==================== 设置分组卡片 ==================== -->
+            <Style x:Key="SettingsCard" TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource CardBrush}"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="20,16"/>
+                <Setter Property="Margin" Value="0,0,0,14"/>
+            </Style>
+
+            <!-- ==================== 设置标签 ==================== -->
+            <Style x:Key="SettingLabel" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <!-- ==================== 设置数值 ==================== -->
+            <Style x:Key="SettingValue" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Foreground" Value="{DynamicResource InfoBrush}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

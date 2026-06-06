@@ -3,7 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:vm="clr-namespace:WechatBot.ViewModels"
-             Background="#FF202020">
+             Background="{DynamicResource BgBrush}">
+
+    <UserControl.Resources>
+        <!-- 筛选 Pill -->
+        <Style x:Key="FilterPill" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="GroupName" Value="LogFilter"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Pill" Background="Transparent"
+                                CornerRadius="12" Padding="14,5"
+                                BorderThickness="1" BorderBrush="{DynamicResource InputBorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Pill" Property="Background" Value="{DynamicResource NavItemHoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Pill" Property="Background" Value="{DynamicResource AccentBrush}"/>
+                                <Setter TargetName="Pill" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 底部按钮 -->
+        <Style x:Key="FooterBtn" TargetType="Button">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="14,6"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource InputBorderBrush}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="5" Padding="{TemplateBinding Padding}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource SurfaceHoverBrush}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource TextTertiaryBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
     <Grid Margin="24,20">
         <Grid.RowDefinitions>
@@ -15,68 +75,93 @@
 
         <!-- 标题 -->
         <TextBlock Grid.Row="0" Text="运行日志" FontSize="24" FontWeight="Bold"
-                   Foreground="#FFEEEEEE" Margin="0,0,0,16"/>
+                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16"/>
 
         <!-- 筛选栏 -->
-        <Grid Grid.Row="1" Margin="0,0,0,12">
+        <Grid Grid.Row="1" Margin="0,0,0,14">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="8"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="8"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="8"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <RadioButton Grid.Column="0" Content="全部" IsChecked="True" Foreground="#FFCCCCCC"
-                         Margin="0,0,16,0" Click="Filter_Click" Tag="All"/>
-            <RadioButton Grid.Column="1" Content="INFO" Foreground="#FF00CC6A"
-                         Margin="0,0,16,0" Click="Filter_Click" Tag="Info"/>
-            <RadioButton Grid.Column="2" Content="WARN" Foreground="#FFCCAA00"
-                         Margin="0,0,16,0" Click="Filter_Click" Tag="Warn"/>
-            <RadioButton Grid.Column="3" Content="ERROR" Foreground="#FFCC4444"
-                         Margin="0,0,16,0" Click="Filter_Click" Tag="Error"/>
+            <RadioButton Grid.Column="0" Content="全部" IsChecked="True"
+                         Style="{StaticResource FilterPill}" Click="Filter_Click" Tag="All"/>
+            <RadioButton Grid.Column="2" Content="INFO"
+                         Style="{StaticResource FilterPill}" Click="Filter_Click" Tag="Info"/>
+            <RadioButton Grid.Column="4" Content="WARN"
+                         Style="{StaticResource FilterPill}" Click="Filter_Click" Tag="Warn"/>
+            <RadioButton Grid.Column="6" Content="ERROR"
+                         Style="{StaticResource FilterPill}" Click="Filter_Click" Tag="Error"/>
 
-            <TextBox Grid.Column="5" x:Name="SearchBox" Width="200" VerticalAlignment="Center"
-                     FontSize="12" Padding="8,4" TextChanged="SearchBox_TextChanged"
-                     Foreground="#FFCCCCCC" Background="#FF3D3D40" BorderBrush="#FF555558"
-                     Tag="搜索日志..."/>
+            <Border Grid.Column="8" Background="{DynamicResource InputBgBrush}" CornerRadius="5" Padding="1"
+                    BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1">
+                <TextBox x:Name="SearchBox" Width="200" VerticalAlignment="Center"
+                         FontSize="12" Padding="8,4" TextChanged="SearchBox_TextChanged"
+                         Foreground="{DynamicResource TextSecondaryBrush}" Background="Transparent" BorderThickness="0"
+                         CaretBrush="{DynamicResource TextPrimaryBrush}"/>
+            </Border>
         </Grid>
 
         <!-- 日志列表 -->
-        <Border Grid.Row="2" Background="#FF1E1E22" CornerRadius="8" Padding="12,8">
-            <ListBox x:Name="LogListBox" ItemsSource="{Binding Logs}"
-                     Background="Transparent" BorderThickness="0"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     VirtualizingPanel.IsVirtualizing="True"
-                     VirtualizingPanel.VirtualizationMode="Recycling">
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="vm:LogEntry">
-                        <Grid Margin="0,2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="65"/>
-                                <ColumnDefinition Width="42"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding TimeText}" FontSize="11.5"
-                                       FontFamily="Consolas" Foreground="#FF555558" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Icon}" FontSize="12"
-                                       Foreground="{Binding LevelColor}" VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="2" Text="{Binding Message}" FontSize="11.5"
-                                       Foreground="#FFAAAAAA" TextWrapping="Wrap"
-                                       FontFamily="Consolas"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        <Border Grid.Row="2" Background="{DynamicResource BgDeepBrush}" CornerRadius="8" Padding="12,8">
+            <Grid>
+                <!-- 空状态 -->
+                <StackPanel x:Name="EmptyLogState" Style="{StaticResource EmptyState}" Margin="0,20">
+                    <TextBlock Text="📜" FontSize="36" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <TextBlock Text="暂无日志记录" FontSize="14" Foreground="{DynamicResource TextDisabledBrush}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="运行任务后，日志将在这里显示" FontSize="12" Foreground="{DynamicResource TextDisabledBrush}"
+                               HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <ListBox x:Name="LogListBox" ItemsSource="{Binding Logs}"
+                         Background="Transparent" BorderThickness="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         VirtualizingPanel.IsVirtualizing="True"
+                         VirtualizingPanel.VirtualizationMode="Recycling"
+                         Visibility="Collapsed">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="vm:LogEntry">
+                            <Grid Margin="0,3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="65"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding TimeText}" FontSize="11"
+                                           FontFamily="{StaticResource MonoFont}" Foreground="{DynamicResource TextDisabledBrush}"
+                                           VerticalAlignment="Center"/>
+                                <Border Grid.Column="1" CornerRadius="10" Padding="6,2"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Background="{DynamicResource TagInfoBrush}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Icon}" FontSize="10"
+                                                   Foreground="{Binding LevelColor}" Margin="0,0,3,0"/>
+                                        <TextBlock Text="{Binding LevelText}" FontSize="9" FontWeight="SemiBold"
+                                                   Foreground="{Binding LevelColor}"/>
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Grid.Column="2" Text="{Binding Message}" FontSize="11.5"
+                                           Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap"
+                                           FontFamily="{StaticResource MonoFont}" VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </Border>
 
         <!-- 底部操作 -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
-            <Button Content="清空日志" Style="{StaticResource ButtonInfo}" Margin="0,0,8,0"
+            <Button Style="{StaticResource FooterBtn}" Content="清空日志" Margin="0,0,8,0"
                     Click="Clear_Click"/>
-            <Button Content="打开日志目录" Style="{StaticResource ButtonInfo}"
+            <Button Style="{StaticResource FooterBtn}" Content="打开日志目录"
                     Click="OpenLogDir_Click"/>
         </StackPanel>
     </Grid>

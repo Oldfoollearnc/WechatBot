@@ -20,12 +20,21 @@ public partial class LogsPage : UserControl
         _vm = vm;
         DataContext = _vm;
 
-        // 新日志自动滚动到底部
+        // 新日志自动滚动到底部 + 空状态切换
         _vm.Logs.CollectionChanged += (_, _) =>
         {
+            UpdateLogVisibility();
             if (LogListBox.Items.Count > 0)
                 LogListBox.ScrollIntoView(LogListBox.Items[^1]);
         };
+        UpdateLogVisibility();
+    }
+
+    private void UpdateLogVisibility()
+    {
+        var hasLogs = _vm.Logs.Count > 0;
+        EmptyLogState.Visibility = hasLogs ? Visibility.Collapsed : Visibility.Visible;
+        LogListBox.Visibility = hasLogs ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private void Filter_Click(object sender, RoutedEventArgs e)

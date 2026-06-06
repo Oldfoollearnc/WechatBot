@@ -12,6 +12,9 @@ public class Settings
     public ScheduleSettings Schedule { get; set; } = new();
     public RecognitionSettings Recognition { get; set; } = new();
 
+    /// <summary>主题名称：Dark 或 Light</summary>
+    public string Theme { get; set; } = "Dark";
+
     private static readonly string SettingsPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "猪猪工作室", "微信自动化", "settings.json");

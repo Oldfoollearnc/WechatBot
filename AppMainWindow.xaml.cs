@@ -2,6 +2,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using WechatBot.Pages;
 using WechatBot.ViewModels;
@@ -28,9 +30,12 @@ public partial class AppMainWindow : Window
 
     public AppMainWindow()
     {
+        // 先加载主题，再初始化 UI
+        _settings = Settings.Load(warn => { });
+        ThemeManager.ApplyTheme(_settings.Theme);
+
         InitializeComponent();
 
-        _settings = Settings.Load(warn => { });
         _imageRec = new ImageRecognition();
         _viewModel = new MainViewModel(_settings, _imageRec);
         DataContext = _viewModel;
@@ -44,6 +49,7 @@ public partial class AppMainWindow : Window
 
         CleanOldLogs();
         StartScheduleTimer();
+        StartLogoBreathAnimation();
 
         Loaded += (_, _) => InitTrayIcon();
         Closed += (_, _) =>
@@ -55,12 +61,12 @@ public partial class AppMainWindow : Window
         };
     }
 
-    #region 导航
+    #region 导航 + 页面切换动画
 
     private void Nav_Checked(object sender, RoutedEventArgs e)
     {
         if (sender is not RadioButton rb || _homePage == null) return;
-        PageContent.Content = rb.Name switch
+        UserControl? newPage = rb.Name switch
         {
             "NavHome" => _homePage,
             "NavSteps" => _stepsPage,
@@ -68,6 +74,44 @@ public partial class AppMainWindow : Window
             "NavSettings" => _settingsPage,
             _ => _homePage
         };
+        if (newPage == null || PageContent.Content == newPage) return;
+        AnimatePageSwitch(newPage);
+    }
+
+    private void AnimatePageSwitch(UserControl newPage)
+    {
+        // 淡出旧页面
+        var fadeOut = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(120))
+        { EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn } };
+        fadeOut.Completed += (_, _) =>
+        {
+            PageContent.Content = newPage;
+            // 淡入新页面
+            var fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(250))
+            { EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut } };
+            var slideIn = new DoubleAnimation(10, 0, TimeSpan.FromMilliseconds(300))
+            { EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut } };
+
+            PageContent.BeginAnimation(OpacityProperty, fadeIn);
+            var transform = PageContent.RenderTransform as TranslateTransform;
+            if (transform == null)
+            {
+                transform = new TranslateTransform();
+                PageContent.RenderTransform = transform;
+            }
+            transform.BeginAnimation(TranslateTransform.YProperty, slideIn);
+        };
+        PageContent.BeginAnimation(OpacityProperty, fadeOut);
+    }
+
+    private void StartLogoBreathAnimation()
+    {
+        var breathAnim = new DoubleAnimation(1, 0.6, TimeSpan.FromSeconds(1.5))
+        {
+            AutoReverse = true,
+            EasingFunction = new SineEase { EasingMode = EasingMode.EaseInOut }
+        };
+        LogoEmoji.BeginAnimation(OpacityProperty, breathAnim);
     }
 
     #endregion
