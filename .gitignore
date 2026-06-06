@@ -1,0 +1,28 @@
+# Build results
+bin/
+obj/
+dist/
+publish/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# NuGet
+packages/
+
+# Installer
+installer/
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Temporary
+*.tmp
+*.cache

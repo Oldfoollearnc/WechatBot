@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+vendor/
+.venv/
+__pycache__/
+
+# Build outputs
+dist/
+build/
+bin/
+obj/
+.next/
+target/
+packages/
+
+# Logs & temp
+*.log
+*.tmp
+*.cache
+.DS_Store
+Thumbs.db
+
+# 大型二进制和源码映射
+*.min.js
+*.map
+*.dll
+*.exe
+*.pdb
+
+# IDE 和版本控制
+.vs/
+.idea/
+.git/
+
+# 文档（如不需要）
+docs/
+*.md
+!CLAUDE.md

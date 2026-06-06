@@ -1,0 +1,27 @@
+<Window x:Class="WechatBot.RegionSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="框选区域"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="#40000000"
+        Topmost="True"
+        WindowState="Maximized"
+        Cursor="Cross"
+        ShowInTaskbar="False"
+        Focusable="True">
+
+    <Canvas x:Name="DrawCanvas" Background="Transparent"
+            MouseLeftButtonDown="Canvas_MouseDown"
+            MouseMove="Canvas_MouseMove"
+            MouseLeftButtonUp="Canvas_MouseUp">
+
+        <TextBlock Canvas.Left="20" Canvas.Top="20"
+                   Text="按住左键拖拽框选按钮区域，松开完成 | ESC 取消"
+                   FontSize="16" Foreground="White" FontWeight="Bold"/>
+
+        <Rectangle x:Name="SelectionRect"
+                   Stroke="#FF89B4FA" StrokeThickness="3"
+                   Fill="#3089B4FA" Visibility="Collapsed"/>
+    </Canvas>
+</Window>
