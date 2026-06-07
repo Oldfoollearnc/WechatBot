@@ -157,7 +157,8 @@
                 <TextBlock Grid.Column="0" Text="最近日志" FontSize="18" FontWeight="SemiBold"
                            Foreground="{DynamicResource TextPrimaryBrush}"/>
                 <TextBlock Grid.Column="1" Text="查看全部 →" FontSize="12" Foreground="{DynamicResource AccentBrush}"
-                           Cursor="Hand" VerticalAlignment="Center"/>
+                           Cursor="Hand" VerticalAlignment="Center"
+                           MouseLeftButtonDown="ViewAllLogs_Click"/>
             </Grid>
 
             <Border Background="{DynamicResource BgDeepBrush}" CornerRadius="10" Padding="16,12" MaxHeight="240"

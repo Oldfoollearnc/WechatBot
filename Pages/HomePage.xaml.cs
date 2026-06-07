@@ -96,4 +96,12 @@ public partial class HomePage : UserControl
 
     private void Stop_Click(object sender, MouseButtonEventArgs e)
         => _vm.StopCommand.Execute(null);
+
+    private void ViewAllLogs_Click(object sender, MouseButtonEventArgs e)
+    {
+        if (Application.Current.MainWindow is AppMainWindow mainWindow)
+        {
+            mainWindow.NavLogs.IsChecked = true;
+        }
+    }
 }
